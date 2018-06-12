@@ -1,0 +1,282 @@
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+html {
+    height: 100%;
+    widht: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: inherit;
+    widht: inherit;
+    background-color: white;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    align-items:stretch;
+}
+
+.myHeader {
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    padding: 20px;
+    background-color: #1abc9c;
+    color: white;
+}
+
+.navHeader{
+    display:flex;
+    flex-direction: row;
+    flex:10%;
+    align-items: stretch;
+    justify-content: flex-start;
+    text-align: center;
+    font-size: 21px;
+    background-color: #333;
+    color: white;
+    
+}
+        .navHeader a{
+            padding: 15px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            
+        }
+
+.myTopNav {
+    display:flex;
+    flex-direction: row;
+    flex:90%;
+    align-items:stretch;
+    justify-content: flex-end;
+    text-align: center;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+}
+
+        .myTopNav a:not(:first-child){
+            padding: 15px 20px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .myTopNav a:not(:first-child):hover{
+            padding: 15px 20px;
+            color: black;
+            background-color: #ddd;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+.mySideNav {
+    display:flex;
+    flex-direction: column;
+    align-items:stretch;
+    justify-content: center;
+    text-align: center;
+    background-color: #333;
+    color: white;
+
+}
+
+        .mySideNav a {
+            padding: 15px 20px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .mySideNav a:hover{
+            padding: 15px 20px;
+            color: black;
+            background-color: #ddd;
+            text-align: center;
+            text-decoration: none;
+        }
+
+
+        
+.mySide{
+    dispay:flex;
+    flex-direction:column;
+    flex: 20%;
+    height:100%;
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+    
+    
+}   
+
+.myForm{
+    dispay:flex;
+    flex-direction:column;
+    min-height: 150px;
+    min-width: 250px;
+    background-color: #f1f1f1;
+    padding: 10px;
+    align-self: center;
+}
+
+.myAddForm{
+    dispay:flex;
+    flex-direction:column;
+    min-height: 150px;
+    min-width: 550px;
+    background-color: #f1f1f1;
+    padding: 10px;
+    align-self: center;
+}
+
+.myMain{
+    dispay:flex;
+    flex-direction:column;
+    flex: 80%;
+    height:100%;
+    background-color: white;
+    padding: 10px;
+    padding-bottom: 50px;
+     
+}
+
+.myVote{
+    display: flex;
+    flex-direction:column;
+    flex: 10%;
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 50px;
+}
+
+.myRecipe {
+    display: flex;
+    flex-direction:column;
+    flex: 90%;
+    color: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    background-color: #f1f1f1;
+}
+
+.myFooter {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: #ddd;
+    color: black;
+    
+}
+
+
+.myColumn {
+    display:flex;
+    flex-direction: column;
+    height:inherit;
+}
+
+.myRow {
+    display:flex;
+    flex-direction: row;
+    width: inherit;
+}
+
+.myTopNav .icon{
+    display: none;
+}
+
+.mySide .icon{
+    display: none;
+}
+
+
+@media (max-width: 760px){
+    
+    .myTopNav a:not(:first-child){
+        display: none;
+    }
+    
+    .myTopNav a.icon{
+        display: flex;
+    }
+    
+    .mySideNav a {
+        display: none;
+    }
+    
+    .mySide a.icon {
+        display: flex;
+    }
+    
+    .myHeader{
+        display: none;
+    }
+    
+    .mySideNav {
+        flex-direction: column;
+    }
+    
+    .mySide{
+        padding-left: 0; 
+        padding-right: 0; 
+    }
+    
+    .navHeader{
+        justify-content: center;
+
+    }
+    .myRow {
+        flex-direction: column;
+    }
+    
+}
+
+@media (max-width: 760px){
+    
+    .myTopNav.responsive {
+       display: flex;
+       flex-direction: column;
+    }
+    
+    .mySideNav.responsive {
+       display: flex;
+       flex-direction: column;
+    }
+    .myTopNav.responsive a {
+        display: flex;
+        justify-content: center;
+    }
+    .mySideNav.responsive a {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .myVote{
+        order:1;
+        margin-top: 0; 
+    }
+    .myRecipe{
+        order:0;
+        margin-bottom: 0;
+    }
+    
+    .myAddForm{
+        min-height: 150px;
+        min-width: 250px;
+    }
+    
+}    

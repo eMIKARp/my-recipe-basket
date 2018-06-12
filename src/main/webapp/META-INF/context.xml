@@ -1,2 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/Przepisnik"/>
+<Context path="/Przepisnik">
+    <Resource
+        name="jdbc/my-recipe-basket"
+        auth="Container"
+        type="javax.sql.DataSource"
+        initialSize="10"
+        maxTotal="100"
+        maxIdle="30"
+        maxWaitMillis="10000"
+        username="root"
+        password="Polska01"
+        driverClassName="com.mysql.jdbc.Driver"
+        url="jdbc:mysql://localhost:3306/my-recipe-basket"
+    />
+    
+    <Realm className="org.apache.catalina.realm.DataSourceRealm"
+        dataSourceName="jdbc/my-recipe-basket"
+        userTable = "user"
+        userNameCol="username"
+        userCredCol="password"
+        userRoleTable="user_role"
+        roleNameCol="role_name"
+        localDataSource="true">
+
+    <!-- <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler"
+          algorithm="MD5"
+          iterations="1"
+          saltlenght="0"
+        /> -->
+
+    </Realm>
+    
+</Context>
+
