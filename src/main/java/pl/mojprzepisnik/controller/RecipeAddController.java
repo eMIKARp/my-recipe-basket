@@ -22,7 +22,7 @@ public class RecipeAddController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getUserPrincipal()!=null){
-            request.getRequestDispatcher("add.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/add.jsp").forward(request, response);
         } else {
             response.sendError(403);
         }
@@ -44,7 +44,7 @@ public class RecipeAddController extends HttpServlet {
         if (request.getUserPrincipal()!= null){
             RecipeService recipeService = new RecipeService();
             recipeService.addRecipe(name, description, url, authenticatedUser, category);
-            response.sendRedirect(request.getContextPath()+"/");
+            response.sendRedirect(request.getContextPath()+"/my_recipes");
         } else {
             response.sendError(403);
         }

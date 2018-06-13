@@ -21,12 +21,12 @@ public class HomeController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         saveRecipesInRequest(request);
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
     }
     
     private void saveRecipesInRequest(HttpServletRequest request){
         RecipeService recipeService = new RecipeService();
-        List<Recipe> allRecipes = recipeService.getAllRecipes(new Comparator<Recipe>() {
+        List<Recipe> allRecipes = recipeService.getAllRecipesIfShared(new Comparator<Recipe>() {
             @Override
             public int compare(Recipe r1, Recipe r2) {
                 int r1Vote = r1.getUpVote() - r1.getDownVote();

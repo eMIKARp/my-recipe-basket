@@ -16,7 +16,7 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("register.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/register.jsp").forward(request, response);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class RegisterController extends HttpServlet {
         String email = request.getParameter("inputEmail");
         UserService userService = new UserService();
         userService.addUser(username, email, password);
-        response.sendRedirect(request.getContextPath()+"/");
+        response.sendRedirect(request.getContextPath()+"/index");
     }
 
 }

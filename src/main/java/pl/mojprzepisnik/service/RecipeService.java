@@ -61,6 +61,16 @@ public class RecipeService {
         return recipes;
     }
     
+    public List<Recipe> getAllRecipesIfShared(Comparator<Recipe> comparator){
+        DaoFactory factory = DaoFactory.getDaoFactory();
+        RecipeDao recipeDao = factory.getRecipeDao();
+        List<Recipe> recipes = recipeDao.getAllIfShared();
+        if (comparator!=null && recipes != null){
+            recipes.sort(comparator);
+        }
+        return recipes;
+    }
+    
     public boolean deleteRecipe (long recipe_id){
         
         DaoFactory factory = DaoFactory.getDaoFactory();
@@ -82,6 +92,13 @@ public class RecipeService {
         DaoFactory factory = DaoFactory.getDaoFactory();
         RecipeDao recipeDao = factory.getRecipeDao();
         Boolean result = recipeDao.update(recipe);
+        return result;
+    }
+    
+    public boolean shareRecipe(long recipe_id, boolean is_shared){
+        DaoFactory factory = DaoFactory.getDaoFactory();
+        RecipeDao recipeDao = factory.getRecipeDao();
+        Boolean result = recipeDao.shareRecipe(recipe_id, is_shared);
         return result;
     }
 }

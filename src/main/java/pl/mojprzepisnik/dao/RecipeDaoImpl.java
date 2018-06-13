@@ -30,6 +30,14 @@ public class RecipeDaoImpl implements RecipeDao{
             + " FROM recipe"
             + " LEFT JOIN user ON recipe.user_id = user.user_id"
             + " LEFT JOIN recipe_category ON recipe.recipe_id = recipe_category.recipe_id;";
+    
+    private static final String READ_ALL_RECIPES_IF_SHARED = "SELECT user.user_id, username, email, is_active,"
+            + " password, recipe.recipe_id, name, description, url, date, up_vote, down_vote, is_shared, category_name"
+            + " FROM recipe"
+            + " LEFT JOIN user ON recipe.user_id = user.user_id"
+            + " LEFT JOIN recipe_category ON recipe.recipe_id = recipe_category.recipe_id"
+            + " WHERE is_shared = 1;";
+    
     private static final String READ_ALL_RECIPES_BY_USERNAME = "SELECT user.user_id, username, email, is_active,"
             + " password, recipe.recipe_id, name, description, url, date, up_vote, down_vote, is_shared, category_name"
             + " FROM recipe"
@@ -44,7 +52,9 @@ public class RecipeDaoImpl implements RecipeDao{
             + " WHERE recipe.recipe_id = :recipe_id;";
 
     private static final String UPDATE_RECIPE = "UPDATE recipe SET name=:name, description=:description, url=:url, user_id=:user_id, date=:date, up_vote=:up_vote, down_vote=:down_vote, is_shared=:is_shared"
-		+ " WHERE recipe_id=:recipe_id;";        
+		+ " WHERE recipe_id=:recipe_id;";   
+    
+    private static final String SHARE_RECIPE = "UPDATE recipe SET is_shared=:is_shared WHERE recipe_id=:recipe_id;";        
     
     private static final String DELETE_RECIPE = "DELETE FROM recipe WHERE recipe_id=:recipe_id";
     
@@ -119,7 +129,23 @@ public class RecipeDaoImpl implements RecipeDao{
         }
         return result;
     }
-
+    
+    @Override
+    public Boolean shareRecipe(long recipe_id, boolean is_shared){
+        boolean result = false;
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("recipe_id", recipe_id);
+        paramMap.put("is_shared", is_shared);
+        SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);
+        int update = template.update(SHARE_RECIPE, paramSource);
+        if(update > 0) {
+                
+                result = true;
+        }
+        
+        return result;
+    }
+    
     @Override
     public boolean delete(Long primaryKey) {
         
@@ -136,6 +162,15 @@ public class RecipeDaoImpl implements RecipeDao{
     public List<Recipe> getAll() {
         
         List<Recipe> recipes = template.query(READ_ALL_RECIPES, new RecipeRowMapper());
+        recipes = deduplicateRecipes(recipes);
+                
+        return recipes;
+    }
+    
+    @Override
+    public List<Recipe> getAllIfShared() {
+        
+        List<Recipe> recipes = template.query(READ_ALL_RECIPES_IF_SHARED, new RecipeRowMapper());
         recipes = deduplicateRecipes(recipes);
                 
         return recipes;

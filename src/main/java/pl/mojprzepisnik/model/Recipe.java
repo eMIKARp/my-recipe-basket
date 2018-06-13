@@ -139,11 +139,6 @@ public class Recipe {
         for (int i = 0; i < category.length;i++){
             categoryList.add(category[i]);
         }
-        for (int i = 0; i< categoryList.size();i++){
-            System.out.println(categoryList.get(i).getName());
-        }
-        System.out.println("-------------------");
-        
         categoryList.toArray(categoryArray);
         setCategory(categoryArray);
     }

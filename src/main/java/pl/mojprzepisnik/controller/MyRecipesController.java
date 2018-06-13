@@ -2,6 +2,7 @@ package pl.mojprzepisnik.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -20,7 +21,7 @@ public class MyRecipesController extends HttpServlet {
             throws ServletException, IOException {
         
         saveRecipesInRequest(request);
-        request.getRequestDispatcher("my_recipes.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/my_recipes.jsp").forward(request, response);
     }
     
     private void saveRecipesInRequest(HttpServletRequest request){
@@ -29,11 +30,11 @@ public class MyRecipesController extends HttpServlet {
         List<Recipe> allRecipes = recipeService.getAllRecipesByUsername(new Comparator<Recipe>() {
             @Override
             public int compare(Recipe r1, Recipe r2) {
-                int r1Vote = r1.getUpVote() - r1.getDownVote();
-                int r2Vote = r2.getUpVote() - r2.getDownVote();
-                if (r1Vote < r2Vote){
+                Timestamp t1 = r1.getTimestamp();
+                Timestamp t2 = r2.getTimestamp();
+                if (t1.before(t2)){
                     return 1;
-                } else if (r1Vote > r2Vote) {
+                } else if (t1.after(t2)) {
                     return -1;
                 } else {
                     return 0;
