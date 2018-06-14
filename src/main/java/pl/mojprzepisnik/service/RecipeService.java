@@ -61,6 +61,23 @@ public class RecipeService {
         return recipes;
     }
     
+    public List<Recipe> getFavouriteRecipesByUsername(Comparator<Recipe> comparator, String username){
+        DaoFactory factory = DaoFactory.getDaoFactory();
+        RecipeDao recipeDao = factory.getRecipeDao();
+        List<Recipe> recipes = recipeDao.getFavouriteRecipesByUsername(username);
+        if (comparator!=null && recipes != null){
+            recipes.sort(comparator);
+        }
+        return recipes;
+    }
+    
+    public List<Recipe> getFavouriteRecipesByUsername(String username){
+        DaoFactory factory = DaoFactory.getDaoFactory();
+        RecipeDao recipeDao = factory.getRecipeDao();
+        List<Recipe> recipes = recipeDao.getFavouriteRecipesByUsername(username);
+        return recipes;
+    }
+    
     public List<Recipe> getAllRecipesIfShared(Comparator<Recipe> comparator){
         DaoFactory factory = DaoFactory.getDaoFactory();
         RecipeDao recipeDao = factory.getRecipeDao();
@@ -100,5 +117,30 @@ public class RecipeService {
         RecipeDao recipeDao = factory.getRecipeDao();
         Boolean result = recipeDao.shareRecipe(recipe_id, is_shared);
         return result;
+    }
+    
+    public Boolean addToFavourite(Long recipe_id, String username){
+        Boolean result = false;
+        DaoFactory factory = DaoFactory.getDaoFactory();
+        RecipeDao recipeDao = factory.getRecipeDao();
+        result = recipeDao.addToFavourite(recipe_id, username);
+        
+        return result;
+    }
+    
+    public Boolean checkIfAllreadyFavourite(long recipe_id,String username){
+        Boolean result = false;
+        DaoFactory factory = DaoFactory.getDaoFactory();
+        RecipeDao recipeDao = factory.getRecipeDao();
+        result = recipeDao.checkIfAllreadyFavourite(recipe_id, username);
+        return result;
+    } 
+    
+    public Boolean removeRecipeFromFavourites(long recipe_id, String username){
+        Boolean result = false;
+        DaoFactory factory = DaoFactory.getDaoFactory();
+        RecipeDao recipeDao = factory.getRecipeDao();
+        result = recipeDao.removeRecipeFromFavourites(recipe_id, username);
+        return result;    
     }
 }

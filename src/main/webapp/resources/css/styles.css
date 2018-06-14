@@ -151,7 +151,7 @@ body {
 .myVote{
     display: flex;
     flex-direction:column;
-    flex: 10%;
+    flex: 5%;
     background-color: #f1f1f1;
     padding: 10px;
     margin-bottom: 10px;
@@ -161,7 +161,7 @@ body {
 .myRecipe {
     display: flex;
     flex-direction:column;
-    flex: 90%;
+    flex: 95%;
     color: black;
     padding-left: 10px;
     padding-right: 10px;

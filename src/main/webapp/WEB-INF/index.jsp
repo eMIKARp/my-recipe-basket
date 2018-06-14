@@ -71,11 +71,11 @@
                     <c:forEach var="recipe" items="${requestScope.recipes}">    
                         <div class="myRow">
                           <div class ="myVote">
-                              <a href="${pageContext.request.contextPath}/vote?recipe_id=${recipe.id}&vote=VOTE_UP" class="btn btn-block btn-primary btn-success" style="background-color: #1abc9c;"><span class="glyphicon glyphicon-arrow-up"></span></a>
+                              <a href="${pageContext.request.contextPath}/vote?recipe_id=${recipe.id}&vote=VOTE_UP" class="btn btn-block btn-primary btn-success" style="background-color: #1abc9c;"><span class="glyphicon glyphicon-thumbs-up"></span></a>
                             <div class="well-sm well" style="text-align: center; margin: 0;">
                                 <c:out value="${recipe.upVote - recipe.downVote}"/>
                             </div>
-                              <a href="${pageContext.request.contextPath}/vote?recipe_id=${recipe.id}&vote=VOTE_DOWN" class="btn btn-block btn-primary btn-danger"><span class="glyphicon glyphicon-arrow-down"></span></a>
+                              <a href="${pageContext.request.contextPath}/vote?recipe_id=${recipe.id}&vote=VOTE_DOWN" class="btn btn-block btn-primary btn-danger"><span class="glyphicon glyphicon-thumbs-down"></span></a>
                          </div>
                           <div class="myRecipe">  
                               <h2 style="margin-top:6px;"><c:out value="${recipe.name}"/></h2>
@@ -90,7 +90,7 @@
                             <p style="color:grey;">Dodano przez <c:out value="${recipe.user.username}"/>, Dnia: <fmt:formatDate value="${recipe.timestamp}" pattern="dd/MM/YYYY"/></p>
                             <div class="myRow">
                                 <a href="<c:out value="${recipe.ulr}"/>" class="btn btn-primary btn-info" style="margin: 5px;padding-left: 20px; padding-right: 20px;">Przejdź do strony</a>
-                                <a href="#" class="btn btn-primary btn-warning" style="margin: 5px;">Dodaj do ulubionych</a>
+                                <a href="${pageContext.request.contextPath}/like?recipe_id=${recipe.id}&recipe_user_id=${recipe.user.id}" class="btn btn-primary btn-warning" style="margin: 5px;">Dodaj do ulubionych</a>
                             </div>    
                         </div>  
                         </div>

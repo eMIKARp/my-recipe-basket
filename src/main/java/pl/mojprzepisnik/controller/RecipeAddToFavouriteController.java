@@ -10,34 +10,37 @@ import javax.servlet.http.HttpServletResponse;
 import pl.mojprzepisnik.model.User;
 import pl.mojprzepisnik.service.RecipeService;
 
-@WebServlet(name = "RecipeRemoveController", urlPatterns = {"/remove"})
-public class RecipeRemoveController extends HttpServlet {
+@WebServlet(name = "RecipeAddToFavouriteController", urlPatterns = {"/like"})
+public class RecipeAddToFavouriteController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         User loggedUser = (User)request.getSession().getAttribute("user");
         if (loggedUser!= null) {
             long recipe_id = Long.parseLong(request.getParameter("recipe_id"));
-            long recipe_user_id = Long.parseLong(request.getParameter("recipe_user_id"));
-            if (loggedUser.getId() == recipe_user_id){
-                removeRecipe(recipe_id);
-            } else {
-                removeRecipeFromFavourites(recipe_id, loggedUser.getUsername());
-            }            
+            long user_id = Long.parseLong(request.getParameter("recipe_user_id"));
+            if (user_id != loggedUser.getId()){
+                if (!checkIfAllreadyFavourite(recipe_id, loggedUser.getUsername())){
+                    addToFavourite(recipe_id, loggedUser.getUsername());
+                }
+            }
         }
         
-        response.sendRedirect(request.getContextPath()+"/my_recipes");
+        response.sendRedirect(request.getContextPath()+"/index");
     }
     
-    private void removeRecipe(long recipe_id){
+    private void addToFavourite(Long recipe_id, String username){
         RecipeService recipeService = new RecipeService();
-        recipeService.deleteRecipe(recipe_id);
+        recipeService.addToFavourite(recipe_id, username);
     }
     
-    private void removeRecipeFromFavourites(long recipe_id, String username){
+    private boolean checkIfAllreadyFavourite(Long recipe_id, String username){
         RecipeService recipeService = new RecipeService();
-        recipeService.removeRecipeFromFavourites(recipe_id, username);
+        Boolean result = recipeService.checkIfAllreadyFavourite(recipe_id, username);
+        
+        return result;
     }
 
 }

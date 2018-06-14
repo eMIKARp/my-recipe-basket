@@ -44,6 +44,15 @@ public class RecipeDaoImpl implements RecipeDao{
             + " LEFT JOIN user ON recipe.user_id = user.user_id"
             + " LEFT JOIN recipe_category ON recipe.recipe_id = recipe_category.recipe_id"
             + " WHERE username = :username;";
+    
+    private static final String READ_FAVOURITE_RECIPES_BY_USERNAME = "SELECT user.user_id, username, email, is_active,"
+            + " password, recipe.recipe_id, name, description, url, date, up_vote, down_vote, is_shared, category_name"
+            + " FROM recipe"
+            + " LEFT JOIN user ON recipe.user_id = user.user_id"
+            + " LEFT JOIN recipe_category ON recipe.recipe_id = recipe_category.recipe_id"
+            + " WHERE recipe.recipe_id IN (SELECT recipe_id FROM user_foreign_recipe WHERE user_foreign_recipe.username=:username);";
+    
+    
     private static final String READ_RECIPE = "SELECT user.user_id, username, email, is_active,"
             + " password, recipe.recipe_id, name, description, url, date, up_vote, down_vote, is_shared, category_name"
             + " FROM recipe"
@@ -58,6 +67,12 @@ public class RecipeDaoImpl implements RecipeDao{
     
     private static final String DELETE_RECIPE = "DELETE FROM recipe WHERE recipe_id=:recipe_id";
     
+    private static final String DELETE_RECIPE_FROM_FAVOURITES = "DELETE FROM user_foreign_recipe WHERE recipe_id=:recipe_id AND username=:username";
+    
+    private static final String ADD_TO_FAVOURITE = "INSERT INTO user_foreign_recipe (username, recipe_id) VALUES (:username,:recipe_id);";
+    
+    private static final String CHECK_IF_FAVOURITE = "UPDATE user_foreign_recipe SET username=:username, recipe_id=:recipe_id WHERE username=:username AND recipe_id=:recipe_id;";
+      
     NamedParameterJdbcTemplate template;
     
     public RecipeDaoImpl() {
@@ -102,10 +117,53 @@ public class RecipeDaoImpl implements RecipeDao{
     }
 
     @Override
+    public Boolean addToFavourite(long recipe_id, String username){
+        boolean result = false;
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("recipe_id", recipe_id);
+        paramMap.put("username", username);
+        SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);
+        int update = template.update(ADD_TO_FAVOURITE, paramSource);
+        if (update > 0){
+            result = true;
+        }
+        return result;
+    }
+    
+    @Override
+    public Boolean checkIfAllreadyFavourite(long recipe_id, String username){
+        boolean result = false;
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("recipe_id", recipe_id);
+        paramMap.put("username", username);
+        SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);
+        int update = template.update(CHECK_IF_FAVOURITE, paramSource);
+        if (update > 0){
+            result = true;
+        }
+        return result;
+    }
+    
+    public Boolean removeRecipeFromFavourites(long recipe_id, String username){
+        boolean result = false;
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("recipe_id", recipe_id);
+        paramMap.put("username", username);
+        SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);
+        int update = template.update(DELETE_RECIPE_FROM_FAVOURITES, paramSource);
+        if (update > 0){
+            result = true;
+        }
+        return result;
+    }
+    
+    @Override
     public Recipe read(Long primaryKey) {
         SqlParameterSource paramSource = new MapSqlParameterSource("recipe_id", primaryKey);
-        Recipe recipe = template.queryForObject(READ_RECIPE, paramSource, new RecipeRowMapper());
-        return recipe;
+        List<Recipe> recipe = template.query(READ_RECIPE, paramSource, new RecipeRowMapper());
+        Recipe resultRecipe = deduplicateRecipes(recipe).get(0);
+        
+        return resultRecipe;
     }
 
     @Override
@@ -184,6 +242,14 @@ public class RecipeDaoImpl implements RecipeDao{
         
         return recipes;
     }
+
+    @Override
+    public List<Recipe> getFavouriteRecipesByUsername(String username){
+        List<Recipe> recipes = template.query(READ_FAVOURITE_RECIPES_BY_USERNAME, new MapSqlParameterSource("username",username), new RecipeRowMapper());
+        recipes = deduplicateRecipes(recipes);
+        
+        return recipes;
+    }
     
     private List<Recipe> deduplicateRecipes(List<Recipe> recipes){
         Map<Long,Recipe> deduplicatedRecipes = new HashMap<Long,Recipe>();
@@ -205,7 +271,7 @@ public class RecipeDaoImpl implements RecipeDao{
         
         return recipeList;
     }
-
+    
     private class RecipeRowMapper implements RowMapper<Recipe>{
 
     @Override

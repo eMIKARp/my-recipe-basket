@@ -27,7 +27,10 @@ public class MyRecipesController extends HttpServlet {
     private void saveRecipesInRequest(HttpServletRequest request){
         String username = request.getUserPrincipal().getName();
         RecipeService recipeService = new RecipeService();
-        List<Recipe> allRecipes = recipeService.getAllRecipesByUsername(new Comparator<Recipe>() {
+        List<Recipe> allFavouriteRecipes = recipeService.getFavouriteRecipesByUsername(username);
+        List<Recipe> allRecipes = recipeService.getAllRecipesByUsername(username); 
+        allRecipes.addAll(allFavouriteRecipes);
+        allRecipes.sort(new Comparator<Recipe>() {
             @Override
             public int compare(Recipe r1, Recipe r2) {
                 Timestamp t1 = r1.getTimestamp();
@@ -40,7 +43,7 @@ public class MyRecipesController extends HttpServlet {
                     return 0;
                 }
             }
-        }, username); 
+        });
         
         request.setAttribute("recipes", allRecipes);
     } 
