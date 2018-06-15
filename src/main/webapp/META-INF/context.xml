@@ -23,11 +23,11 @@
         roleNameCol="role_name"
         localDataSource="true">
 
-    <!-- <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler"
+   <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler"
           algorithm="MD5"
           iterations="1"
           saltlenght="0"
-        /> -->
+        /> 
 
     </Realm>
     
