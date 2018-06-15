@@ -55,23 +55,23 @@ public class VoteController extends HttpServlet {
         recipeService.updateRecipe(updatedRecipe);
     }
 
-    	private Recipe addRecipeVote(Recipe recipe, VoteType voteType) {
+    private Recipe addRecipeVote(Recipe recipe, VoteType voteType) {
+        Recipe recipeCopy = new Recipe(recipe);
+        if(voteType == VoteType.VOTE_UP) {
+                recipeCopy.setUpVote(recipeCopy.getUpVote() + 1);
+        } else if(voteType == VoteType.VOTE_DOWN) {
+                recipeCopy.setDownVote(recipeCopy.getDownVote() + 1);
+        }
+        return recipeCopy;
+    }
+
+    private Recipe removeRecipeVote(Recipe recipe, VoteType voteType) {
             Recipe recipeCopy = new Recipe(recipe);
             if(voteType == VoteType.VOTE_UP) {
-                    recipeCopy.setUpVote(recipeCopy.getUpVote() + 1);
+                    recipeCopy.setUpVote(recipeCopy.getUpVote() - 1);
             } else if(voteType == VoteType.VOTE_DOWN) {
-                    recipeCopy.setDownVote(recipeCopy.getDownVote() + 1);
+                    recipeCopy.setDownVote(recipeCopy.getDownVote() - 1);
             }
             return recipeCopy;
-	}
-	
-	private Recipe removeRecipeVote(Recipe recipe, VoteType voteType) {
-		Recipe recipeCopy = new Recipe(recipe);
-		if(voteType == VoteType.VOTE_UP) {
-			recipeCopy.setUpVote(recipeCopy.getUpVote() - 1);
-		} else if(voteType == VoteType.VOTE_DOWN) {
-			recipeCopy.setDownVote(recipeCopy.getDownVote() - 1);
-		}
-		return recipeCopy;
-	}
+    }
 }

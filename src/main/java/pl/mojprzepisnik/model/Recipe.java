@@ -17,12 +17,12 @@ public class Recipe {
     private int downVote;
     private boolean isShared;
     private User user;
-    private Category[] category;
+    private List<Category> category;
 
     public Recipe() {
     }
 
-    public Recipe(long id, String name, String description, String ulr, Timestamp timestamp, int upVote, int downVote, boolean isShared, User user, Category[] category) {
+    public Recipe(long id, String name, String description, String ulr, Timestamp timestamp, int upVote, int downVote, boolean isShared, User user, List<Category> category) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -120,47 +120,35 @@ public class Recipe {
         this.user = user;
     }
 
-    public Category[] getCategory() {
+    public List<Category> getCategory() {
         return category;
     }
 
-    public void setCategory(Category[] category) {
+    public void setCategory(List<Category> category) {
         this.category = category;
     }
     
-    public void appendCategory (Category[] category){
+    public void appendCategory (List<Category> category){
 
-        List<Category> categoryList = new ArrayList<Category>();
-        Category[] categoryArray = new Category[this.category.length+category.length];
+        List<Category> appendedCategoryList = new ArrayList<Category>();
+            appendedCategoryList.addAll(category);
         
-        for (int i = 0; i < this.category.length;i++){
-            categoryList.add(this.category[i]);
-        }
-        for (int i = 0; i < category.length;i++){
-            categoryList.add(category[i]);
-        }
-        categoryList.toArray(categoryArray);
-        setCategory(categoryArray);
-    }
-
-    @Override
-    public String toString() {
-        return "Recipe{" + "id=" + id + ", name=" + name + ", description=" + description + ", ulr=" + ulr + ", timestamp=" + timestamp + ", upVote=" + upVote + ", downVote=" + downVote + ", isShared=" + isShared + ", user=" + user + ", category=" + category + '}';
+        setCategory(appendedCategoryList);
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 97 * hash + Objects.hashCode(this.name);
-        hash = 97 * hash + Objects.hashCode(this.description);
-        hash = 97 * hash + Objects.hashCode(this.ulr);
-        hash = 97 * hash + Objects.hashCode(this.timestamp);
-        hash = 97 * hash + this.upVote;
-        hash = 97 * hash + this.downVote;
-        hash = 97 * hash + (this.isShared ? 1 : 0);
-        hash = 97 * hash + Objects.hashCode(this.user);
-        hash = 97 * hash + Arrays.deepHashCode(this.category);
+        int hash = 3;
+        hash = 29 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 29 * hash + Objects.hashCode(this.name);
+        hash = 29 * hash + Objects.hashCode(this.description);
+        hash = 29 * hash + Objects.hashCode(this.ulr);
+        hash = 29 * hash + Objects.hashCode(this.timestamp);
+        hash = 29 * hash + this.upVote;
+        hash = 29 * hash + this.downVote;
+        hash = 29 * hash + (this.isShared ? 1 : 0);
+        hash = 29 * hash + Objects.hashCode(this.user);
+        hash = 29 * hash + Objects.hashCode(this.category);
         return hash;
     }
 
@@ -203,10 +191,15 @@ public class Recipe {
         if (!Objects.equals(this.user, other.user)) {
             return false;
         }
-        if (!Arrays.deepEquals(this.category, other.category)) {
+        if (!Objects.equals(this.category, other.category)) {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe{" + "id=" + id + ", name=" + name + ", description=" + description + ", ulr=" + ulr + ", timestamp=" + timestamp + ", upVote=" + upVote + ", downVote=" + downVote + ", isShared=" + isShared + ", user=" + user + ", category=" + category + '}';
     }
 
     

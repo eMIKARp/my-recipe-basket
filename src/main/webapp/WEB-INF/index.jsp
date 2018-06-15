@@ -19,11 +19,12 @@
 
     <body>
         <div class="myHeader">
+            <h4 style="margin-bottom: 0px;">Cześć <b><c:out value="${sessionScope.user.username}"/></b>.</h4>
             <div class="myRow">
-                <h2>Witaj w aplikacji &nbsp</h2>
-                <h2 style="font-family: 'Indie Flower', cursive;"><b>mójPrzepiśnik</b></h2>
+                <h2 style="margin-top: 5px; margin-bottom: 0;">Witaj w aplikacji &nbsp</h2>
+                <h2 style="margin-top: 5px; margin-bottom: 0; font-family: 'Indie Flower', cursive;"><b>mójPrzepiśnik</b></h2>
             </div>    
-            <h6>Przygotuj na dzisiaj coś wyjątkowego !</h6>
+            <h5 style="margin-top:10px;">Przygotuj na dzisiaj coś wyjątkowego !</h5>
         </div>
         
         <div class="myRow" style="position: sticky; position: -webkit-sticky; top: 0;">
@@ -60,10 +61,12 @@
                     </a>
                 </div>
                 <div class="mySideNav" id="mySideNav">
-                    <a href="#">Kategoria 1</a> 
-                    <a href="#">Kategoria 2</a> 
-                    <a href="#">Kategoria 3</a> 
-                    <a href="#">Kategoria 4</a> 
+                    <a href="${pageContext.request.contextPath}/index">Pokaż wszystkie</a> 
+                    <a href="${pageContext.request.contextPath}/index?category_name=Kategoria_1">Kategoria 1</a> 
+                    <a href="${pageContext.request.contextPath}/index?category_name=Kategoria_5">Kategoria 5</a> 
+                    <a href="${pageContext.request.contextPath}/index?category_name=Kategoria_2">Kategoria 2</a> 
+                    <a href="${pageContext.request.contextPath}/index?category_name=Kategoria_3">Kategoria 3</a> 
+                    <a href="${pageContext.request.contextPath}/index?category_name=Kategoria_4">Kategoria 4</a>  
                 </div>
             </div>
             <div class="myMain">

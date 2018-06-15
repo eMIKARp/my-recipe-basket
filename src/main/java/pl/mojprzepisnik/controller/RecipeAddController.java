@@ -2,6 +2,9 @@ package pl.mojprzepisnik.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,15 +38,15 @@ public class RecipeAddController extends HttpServlet {
         String name = request.getParameter("inputRecipeName");
         String description = request.getParameter("inputDescription");
         String url = request.getParameter("inputUrl");
-        String[] category_name = request.getParameterValues("inputCategory");
-        Category[] category = new Category[category_name.length];
-        for (int i=0; i < category_name.length;i++){
-            category[i] = new Category(category_name[i],CategoryType.PRE_DEFINED);
+        List<String> categoryNameList = Arrays.asList(request.getParameterValues("inputCategory"));
+        List<Category> categoryList = new ArrayList<Category>();
+        for (int i=0; i < categoryNameList.size();i++){
+            categoryList.add(new Category(categoryNameList.get(i),CategoryType.PRE_DEFINED));
         }
         User authenticatedUser = (User)request.getSession().getAttribute("user");
         if (request.getUserPrincipal()!= null){
             RecipeService recipeService = new RecipeService();
-            recipeService.addRecipe(name, description, url, authenticatedUser, category);
+            recipeService.addRecipe(name, description, url, authenticatedUser, categoryList);
             response.sendRedirect(request.getContextPath()+"/my_recipes");
         } else {
             response.sendError(403);

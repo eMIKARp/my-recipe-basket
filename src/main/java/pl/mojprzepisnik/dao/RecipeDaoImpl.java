@@ -106,9 +106,9 @@ public class RecipeDaoImpl implements RecipeDao{
         
         final String recipeCategoryQuery = "INSERT INTO recipe_category (recipe_id, category_name) VALUES (:recipe_id, :category_name);";
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        for (int i =0; i < newRecipe.getCategory().length;i++){
+        for (int i =0; i < newRecipe.getCategory().size();i++){
             paramMap.put("recipe_id", newRecipe.getId());
-            paramMap.put("category_name", newRecipe.getCategory()[i].getName());
+            paramMap.put("category_name", newRecipe.getCategory().get(i).getName());
             SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);
             template.update(recipeCategoryQuery, paramSource);
             paramMap.clear();
@@ -180,6 +180,7 @@ public class RecipeDaoImpl implements RecipeDao{
         paramMap.put("up_vote", recipe.getUpVote());
         paramMap.put("down_vote", recipe.getDownVote());
         paramMap.put("is_shared", recipe.isIsShared());
+        paramMap.put("category", recipe.getCategory());
         SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);
         int update = template.update(UPDATE_RECIPE, paramSource);
         if(update > 0) {
@@ -294,11 +295,9 @@ public class RecipeDaoImpl implements RecipeDao{
 
             recipe.setUser(user);
 
-        Category[] categoryArray = new Category[1];
-        Category category = new Category();
-            category.setName(resultSet.getString("category_name"));
-            categoryArray[0] = category;
-            recipe.setCategory(categoryArray);
+        List<Category> categoryList = new ArrayList<Category>();
+            categoryList.add(new Category(resultSet.getString("category_name"),CategoryType.PRE_DEFINED));
+            recipe.setCategory(categoryList);
 
         return recipe;
     } 

@@ -57,10 +57,12 @@
                     </a>
                 </div>
                 <div class="mySideNav" id="mySideNav">
-                    <a href="#">Kategoria 1</a> 
-                    <a href="#">Kategoria 2</a> 
-                    <a href="#">Kategoria 3</a> 
-                    <a href="#">Kategoria 4</a> 
+                    <a href="${pageContext.request.contextPath}/my_recipes">Wyświetl wszystko</a> 
+                    <a href="${pageContext.request.contextPath}/my_recipes?category_name=Kategoria_1">Kategoria 1</a> 
+                    <a href="${pageContext.request.contextPath}/my_recipes?category_name=Kategoria_5">Kategoria 5</a> 
+                    <a href="${pageContext.request.contextPath}/my_recipes?category_name=Kategoria_2">Kategoria 2</a> 
+                    <a href="${pageContext.request.contextPath}/my_recipes?category_name=Kategoria_3">Kategoria 3</a> 
+                    <a href="${pageContext.request.contextPath}/my_recipes?category_name=Kategoria_4">Kategoria 4</a> 
                 </div>
             </div>
             <div class="myMain">

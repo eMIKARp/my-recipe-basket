@@ -13,14 +13,14 @@ import pl.mojprzepisnik.model.User;
 
 public class RecipeService {
     
-    public void addRecipe(String name, String description, String url, User user, Category[] category){
+    public void addRecipe(String name, String description, String url, User user, List<Category> category){
         Recipe recipe = createRecipeObject(name, description, url, user, category);
         DaoFactory factory = DaoFactory.getDaoFactory();
         RecipeDao recipeDao = factory.getRecipeDao();
         recipeDao.create(recipe);
     }
     
-    private Recipe createRecipeObject (String name, String description, String url, User user, Category[] category){
+    private Recipe createRecipeObject (String name, String description, String url, User user, List<Category> category){
         
         Recipe recipe = new Recipe();
         recipe.setName(name);
@@ -85,6 +85,13 @@ public class RecipeService {
         if (comparator!=null && recipes != null){
             recipes.sort(comparator);
         }
+        return recipes;
+    }
+    
+    public List<Recipe> getAllRecipesIfShared(){
+        DaoFactory factory = DaoFactory.getDaoFactory();
+        RecipeDao recipeDao = factory.getRecipeDao();
+        List<Recipe> recipes = recipeDao.getAllIfShared();
         return recipes;
     }
     
