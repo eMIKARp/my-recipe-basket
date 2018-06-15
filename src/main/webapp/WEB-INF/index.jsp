@@ -62,11 +62,11 @@
                 </div>
                 <div class="mySideNav" id="mySideNav">
                     <a href="${pageContext.request.contextPath}/index">Pokaż wszystkie</a> 
-                    <a href="${pageContext.request.contextPath}/index?category_name=Kategoria_1">Kategoria 1</a> 
-                    <a href="${pageContext.request.contextPath}/index?category_name=Kategoria_5">Kategoria 5</a> 
-                    <a href="${pageContext.request.contextPath}/index?category_name=Kategoria_2">Kategoria 2</a> 
-                    <a href="${pageContext.request.contextPath}/index?category_name=Kategoria_3">Kategoria 3</a> 
-                    <a href="${pageContext.request.contextPath}/index?category_name=Kategoria_4">Kategoria 4</a>  
+                    <c:if test="${not empty requestScope.categories}">
+                        <c:forEach var="category" items="${requestScope.categories}">
+                            <a href="${pageContext.request.contextPath}/index?category_name=${category.name}">${category.name}</a> 
+                        </c:forEach>
+                    </c:if>
                 </div>
             </div>
             <div class="myMain">

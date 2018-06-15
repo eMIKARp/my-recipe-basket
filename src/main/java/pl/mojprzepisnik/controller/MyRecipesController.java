@@ -11,7 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import pl.mojprzepisnik.model.Category;
 import pl.mojprzepisnik.model.Recipe;
+import pl.mojprzepisnik.service.CategoryService;
 import pl.mojprzepisnik.service.RecipeService;
 
 @WebServlet(name = "MyRecipesController", urlPatterns = {"/my_recipes"})
@@ -23,8 +25,29 @@ public class MyRecipesController extends HttpServlet {
         
         String category_name = request.getParameter("category_name");
         saveRecipesInRequest(category_name, request);
+        saveCategoriesInRequest(request);
         request.getRequestDispatcher("WEB-INF/my_recipes.jsp").forward(request, response);
     }
+    
+    private void saveCategoriesInRequest(HttpServletRequest request){
+     CategoryService categoryService = new CategoryService();
+     List<Category> allCategories = categoryService.getAllCategories(new Comparator<Category>() {
+         @Override
+         public int compare(Category c1, Category c2) {
+             String c1Name = c1.getName();
+             String c2Name = c2.getName();
+
+             if (c1Name.compareToIgnoreCase(c2Name) > 0){
+                 return 1;
+             } else if (c1Name.compareToIgnoreCase(c2Name) < 0){
+                 return -1;
+             } else return 0;
+         }
+     });
+        
+        request.setAttribute("categories", allCategories);
+    }
+    
     
     private void saveRecipesInRequest(String category_name, HttpServletRequest request){
         String username = request.getUserPrincipal().getName();

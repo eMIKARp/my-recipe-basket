@@ -14,11 +14,6 @@ public class Category {
         this.name = name;
         this.cType = cType;
     }
-    
-    public Category(Category category) {
-        this.name = category.name;
-        this.cType = category.cType;
-    }
 
     public String getName() {
         return name;
@@ -37,15 +32,10 @@ public class Category {
     }
 
     @Override
-    public String toString() {
-        return "Category{" + "name=" + name + ", cType=" + cType + '}';
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 23 * hash + Objects.hashCode(this.name);
-        hash = 23 * hash + Objects.hashCode(this.cType);
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.name);
+        hash = 83 * hash + Objects.hashCode(this.cType);
         return hash;
     }
 
@@ -69,6 +59,12 @@ public class Category {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" + "name=" + name + ", cType=" + cType + '}';
+    }
+
     
     
 }

@@ -1,14 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.mojprzepisnik.service;
 
-/**
- *
- * @author emikarp
- */
+import java.util.Comparator;
+import java.util.List;
+import pl.mojprzepisnik.dao.CategoryDao;
+import pl.mojprzepisnik.dao.DaoFactory;
+import pl.mojprzepisnik.model.Category;
+
 public class CategoryService {
     
+    public List<Category> getAllCategories(){
+        DaoFactory factory = DaoFactory.getDaoFactory();
+        CategoryDao categoryDao = factory.getCategoryDao();
+        List<Category> categoryList = categoryDao.getAll();
+        return categoryList;
+    }
+    public List<Category> getAllCategories(Comparator<Category> comparator){
+        DaoFactory factory = DaoFactory.getDaoFactory();
+        CategoryDao categoryDao = factory.getCategoryDao();
+        List<Category> categoryList = categoryDao.getAll();
+        if (comparator!=null && categoryList != null){
+            categoryList.sort(comparator);
+        }
+        return categoryList;
+    }
 }

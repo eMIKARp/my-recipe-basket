@@ -54,10 +54,11 @@
                         <h3 class="form-signin-heading">Dodaj nowy przepis</h3>
                         <input name="inputRecipeName" type="text" class="form-control" style="margin-bottom: 5px;" placeholder="Co dodajesz?" required autofocus>
                         <select multiple name="inputCategory" class="form-control" style="margin-bottom: 5px; color:grey;" required autofocus>
-                            <option>Kategoria 1</option>
-                            <option>Kategoria 2</option>
-                            <option>Kategoria 3</option>
-                            <option>Kategoria 4</option>
+                            <c:if test="${not empty requestScope.categories}">
+                                <c:forEach var="category" items="${requestScope.categories}">
+                                    <option>${category.name}</option> 
+                                </c:forEach>
+                            </c:if>
                         </select>
                         <input name="inputUrl" type="url" class="form-control" style="margin-bottom: 5px;" placeholder="URL" required autofocus>
                         <textarea name="inputDescription" rows="5" class="form-control" style="margin-bottom: 5px;" placeholder="Opis" required></textarea>

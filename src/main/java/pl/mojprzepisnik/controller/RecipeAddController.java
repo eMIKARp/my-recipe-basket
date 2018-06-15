@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +15,7 @@ import pl.mojprzepisnik.model.Category;
 import pl.mojprzepisnik.model.CategoryType;
 import pl.mojprzepisnik.model.Recipe;
 import pl.mojprzepisnik.model.User;
+import pl.mojprzepisnik.service.CategoryService;
 import pl.mojprzepisnik.service.RecipeService;
 
 @WebServlet(name = "RecipeAddController", urlPatterns = {"/add"})
@@ -25,6 +27,7 @@ public class RecipeAddController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getUserPrincipal()!=null){
+            saveCategoriesInRequest(request);
             request.getRequestDispatcher("WEB-INF/add.jsp").forward(request, response);
         } else {
             response.sendError(403);
@@ -52,6 +55,25 @@ public class RecipeAddController extends HttpServlet {
             response.sendError(403);
         }
         
+    }
+    
+     private void saveCategoriesInRequest(HttpServletRequest request){
+     CategoryService categoryService = new CategoryService();
+     List<Category> allCategories = categoryService.getAllCategories(new Comparator<Category>() {
+         @Override
+         public int compare(Category c1, Category c2) {
+             String c1Name = c1.getName();
+             String c2Name = c2.getName();
+
+             if (c1Name.compareToIgnoreCase(c2Name) > 0){
+                 return 1;
+             } else if (c1Name.compareToIgnoreCase(c2Name) < 0){
+                 return -1;
+             } else return 0;
+         }
+     });
+        
+        request.setAttribute("categories", allCategories);
     }
 
   
