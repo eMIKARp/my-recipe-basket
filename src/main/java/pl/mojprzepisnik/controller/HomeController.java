@@ -15,7 +15,7 @@ import pl.mojprzepisnik.model.Recipe;
 import pl.mojprzepisnik.service.CategoryService;
 import pl.mojprzepisnik.service.RecipeService;
 
-@WebServlet(name = "HomeController", urlPatterns = {"/"})
+@WebServlet(name = "HomeController", urlPatterns = {"/index"})
 public class HomeController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
