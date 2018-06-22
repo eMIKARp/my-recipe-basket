@@ -51,11 +51,6 @@
            <artifactId>slf4j-simple</artifactId>
            <version>1.6.4</version>
         </dependency>
-        <dependency>
-            <groupId>com.github.jsimone</groupId>
-            <artifactId>webapp-runner</artifactId>
-            <version>9.0.8.0</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -100,14 +95,15 @@
                                     <version>7.0</version>
                                     <type>jar</type>
                                 </artifactItem>
-                            </artifactItems>
-                            <artifactItem>
+                                 <artifactItem>
                                     <groupId>com.github.jsimone</groupId>
                                     <artifactId>webapp-runner</artifactId>
                                     <version>9.0.8.0</version>
                                     <destFileName>webapp-runner.jar</destFileName>
                                     <type>jar</type>
-                            </artifactItem>
+                                </artifactItem>
+                            </artifactItems>
+                           
                         </configuration>
                     </execution>
                 </executions>
