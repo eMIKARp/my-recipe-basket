@@ -8,10 +8,10 @@
         maxTotal="100"
         maxIdle="30"
         maxWaitMillis="10000"
-        username="root"
-        password="Polska01"
+        username="b05b50417954cb"
+        password="95e88ffd"
         driverClassName="com.mysql.jdbc.Driver"
-        url="jdbc:mysql://localhost:3306/my-recipe-basket"
+        url="jdbc:mysql://us-cdbr-iron-east-04.cleardb.net:3306/heroku_7695df1c331283d?reconnect=true"
     />
     
     <Realm className="org.apache.catalina.realm.DataSourceRealm"
