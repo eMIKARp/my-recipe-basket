@@ -57,10 +57,10 @@
                     </a>
                 </div>
                 <div class="mySideNav" id="mySideNav">
-                    <a href="${pageContext.request.contextPath}/index">Pokaż wszystkie</a> 
+                    <a href="${pageContext.request.contextPath}">Pokaż wszystkie</a> 
                     <c:if test="${not empty requestScope.categories}">
                         <c:forEach var="category" items="${requestScope.categories}">
-                            <a href="${pageContext.request.contextPath}/index?category_name=${category.name}">${category.name}</a> 
+                            <a href="${pageContext.request.contextPath}?category_name=${category.name}">${category.name}</a> 
                         </c:forEach>
                     </c:if>
                 </div>

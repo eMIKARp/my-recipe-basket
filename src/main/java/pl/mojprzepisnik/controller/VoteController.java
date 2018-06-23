@@ -30,7 +30,7 @@ public class VoteController extends HttpServlet {
            long recipe_id = Long.parseLong(request.getParameter("recipe_id"));
            updateVote(user_id, recipe_id, voteType);
         } 
-        response.sendRedirect(request.getContextPath()+"/index");
+        response.sendRedirect(request.getContextPath()+"/");
     }
     
     private void updateVote(long user_id, long recipe_id, VoteType voteType) {
