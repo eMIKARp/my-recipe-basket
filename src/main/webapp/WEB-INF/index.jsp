@@ -27,29 +27,29 @@
             <h5 style="margin-top:10px;">Przygotuj na dzisiaj coś wyjątkowego !</h5>
         </div>
         
-        <div class="myRow" style="position: sticky; position: -webkit-sticky; top: 0;">
+         <div class="myRow" style="position: sticky; position: -webkit-sticky; top: 0;">
             
             <div class="myTopNav" id="myTopNav">
                 <div class="navHeader" style="font-family: 'Indie Flower', cursive;"> 
-                    <a href="index"><b>mójPrzepiśnik</b></a>
+                    <a href="${pageContext.request.contextPath}"><b>mójPrzepiśnik</b></a>
                     <a href="javascript:void(0);" class="icon" onclick="showTopNav()">
                         <i class="fa fa-bars"></i>
                     </a>
                 </div>
                 
-                <a href="index">Strona główna</a> 
-                <a href="my_recipes">Moje przepisy</a> 
-                <a href="add">Dodaj przepis</a>
+                <a href="${pageContext.request.contextPath}">Strona główna</a> 
+                <a href="${pageContext.request.contextPath}/my_recipes">Moje przepisy</a> 
+                <a href="${pageContext.request.contextPath}/add">Dodaj przepis</a>
                 <c:choose>
                     <c:when test="${not empty sessionScope.user}">
-                        <a href="logout">Wyloguj</a>
+                        <a href="${pageContext.request.contextPath}/logout">Wyloguj</a>
                     </c:when>
                     <c:otherwise>
-                        <a href="login">Zaloguj</a>    
+                        <a href="${pageContext.request.contextPath}/login">Zaloguj</a>    
                     </c:otherwise>    
                 </c:choose>
             </div>
-        </div> 
+        </div>  
         
         
         <div class="myRow">

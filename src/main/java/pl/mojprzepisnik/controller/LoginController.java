@@ -15,7 +15,7 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getUserPrincipal()!=null){
-            response.sendRedirect(request.getContextPath()+"/index");
+            response.sendRedirect(request.getContextPath()+"/");
         } else {
             response.sendError(403);
         }
