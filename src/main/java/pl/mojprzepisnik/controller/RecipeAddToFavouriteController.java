@@ -28,7 +28,7 @@ public class RecipeAddToFavouriteController extends HttpServlet {
             }
         }
         
-        response.sendRedirect(request.getContextPath()+"/index");
+        response.sendRedirect(request.getContextPath()+"/");
     }
     
     private void addToFavourite(Long recipe_id, String username){
