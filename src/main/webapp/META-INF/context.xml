@@ -12,7 +12,7 @@
         username="bb4af7e1235509"
         password="332944e2"
         driverClassName="com.mysql.jdbc.Driver"
-        url="jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_c2b0cd0e659bc0b?reconnect=true"
+        url="jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_c2b0cd0e659bc0b?reconnect=true&user=bb4af7e1235509&password=332944e2"
     />
     
     <Realm className="org.apache.catalina.realm.DataSourceRealm"
