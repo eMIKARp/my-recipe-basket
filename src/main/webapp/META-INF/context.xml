@@ -4,14 +4,15 @@
         name="jdbc/my-recipe-basket"
         auth="Container"
         type="javax.sql.DataSource"
-        initialSize="10"
+        initialSize="5"
+        maxActive="10"
         maxTotal="100"
         maxIdle="30"
         maxWaitMillis="10000"
         username="bb4af7e1235509"
         password="332944e2"
         driverClassName="com.mysql.jdbc.Driver"
-        url="jdbc:mysql://us-cdbr-iron-east-04.cleardb.net:3306/heroku_c2b0cd0e659bc0b?reconnect=true"
+        url="jdbc:mysql://us-cdbr-iron-east-04.cleardb.net:3306/heroku_c2b0cd0e659bc0b"
     />
     
     <Realm className="org.apache.catalina.realm.DataSourceRealm"
